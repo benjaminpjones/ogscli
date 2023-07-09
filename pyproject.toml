@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ogs-cli"
+version = "0.1.0"
+description = ""
+authors = ["Benjamin P. Jones <benjaminpaikjones@gmail.com>"]
+readme = "README.md"
+packages = [{include = "ogs_cli"}]
+
+[tool.poetry.scripts]
+ogs-cli = "ogs_cli.cli:cli"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+ogsapi = "^0.7.2"
+click = "^8.1.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
