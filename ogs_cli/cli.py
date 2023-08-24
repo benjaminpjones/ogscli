@@ -1,9 +1,9 @@
 import os
-
+import dotenv
 import click
-
 from ogsapi.client import OGSClient
 
+dotenv.load_dotenv()
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
@@ -15,8 +15,8 @@ def cli(username: str, password: str):
   if CLIENT_ID is None:
      print("Warning: CLIENT_ID not set.")
 
-  client = OGSClient(CLIENT_ID, CLIENT_SECRET, username, password)
-  print("Hello world!")
+  client = OGSClient(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, username=username, password=password)
+  print(client.user_vitals())
 
 if __name__ == "__main__":
   cli()

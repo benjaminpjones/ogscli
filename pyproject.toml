@@ -11,8 +11,9 @@ ogs-cli = "ogs_cli.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-ogsapi = "^0.7.2"
+ogsapi = "^1.1.2"
 click = "^8.1.4"
+python-dotenv = "^1.0.0"
 
 
 [build-system]
