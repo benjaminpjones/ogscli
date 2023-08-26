@@ -15,8 +15,14 @@ def cli(username: str, password: str):
   if CLIENT_ID is None:
      print("Warning: CLIENT_ID not set.")
 
-  client = OGSClient(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, username=username, password=password)
-  print(client.user_vitals())
+  client = OGSClient(
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET,
+    username=username,
+    password=password,
+    log_level="ERROR"
+  )
+
 
 if __name__ == "__main__":
   cli()
