@@ -2,6 +2,7 @@ import os
 import dotenv
 import click
 from ogsapi.client import OGSClient
+from .go_utils import Baduk, Coordinate
 
 dotenv.load_dotenv()
 CLIENT_ID = os.environ.get('CLIENT_ID')
@@ -31,7 +32,14 @@ def cli(username: str, password: str):
 
   selected_game = int(input("select a game:")) - 1
 
-  print(client.game_details(active_games[selected_game]["id"]))
+  game_details = client.game_details(active_games[selected_game]["id"])
+  moves = game_details["gamedata"]["moves"]
+  b = Baduk(game_details["width"], game_details["height"])
+  for move in moves:
+    b.play_move(Coordinate(move[0], move[1]))
+  print(b)
+
+
 
 if __name__ == "__main__":
   cli()
