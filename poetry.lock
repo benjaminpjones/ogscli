@@ -207,13 +207,13 @@ files = [
 
 [[package]]
 name = "ogsapi"
-version = "1.1.3"
+version = "1.3.0"
 description = "An API Wrapper for online-go.com, an online Go / Baduk server"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "ogsapi-1.1.3-py3-none-any.whl", hash = "sha256:2c3be52cf70ff9a7da988e67da34205e08aafcfd355f3aea922ea7653168d17e"},
-    {file = "ogsapi-1.1.3.tar.gz", hash = "sha256:7a259b8ab60a98561bed498d3aca79b263fd17ca15d7e79629beb836c607da03"},
+    {file = "ogsapi-1.3.0-py3-none-any.whl", hash = "sha256:b248082f2e1ace075934ecb3bf93ebe68018d03290877e60e76f6adf97b08449"},
+    {file = "ogsapi-1.3.0.tar.gz", hash = "sha256:eb2b6861183fbbb517d8ee236f34fd46e8d364060563bf25914c1484128b5246"},
 ]
 
 [package.dependencies]

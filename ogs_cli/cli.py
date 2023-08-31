@@ -23,16 +23,15 @@ def cli(username: str, password: str):
     client_secret=CLIENT_SECRET,
     username=username,
     password=password,
-    log_level="ERROR"
   )
 
-  active_games = get(client, endpoint="/ui/overview")["active_games"]
-  for i, game in enumerate(active_games):
+  games = client.active_games()
+  for i, game in enumerate(games):
     print(f'{i+1}) {game["id"]} - {game["name"]} - {game["black"]["username"]} v. {game["white"]["username"]}')
 
   selected_game = int(input("select a game:")) - 1
 
-  game_details = client.game_details(active_games[selected_game]["id"])
+  game_details = client.game_details(games[selected_game]["id"])
   moves = game_details["gamedata"]["moves"]
   b = Baduk(game_details["width"], game_details["height"])
   for move in moves:
