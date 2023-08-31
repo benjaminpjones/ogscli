@@ -66,6 +66,7 @@ class Baduk:
   def __init__(self, width, height):
     self.board = Grid(width, height, 0)
     self.active_player = 1
+    self.last_move = None
 
   def has_liberties(self, pos):
     border = get_outer_border(self.board, get_group(self.board, pos))
@@ -84,7 +85,7 @@ class Baduk:
       if self.board[neighbor] == opponent:
         if not self.has_liberties(neighbor):
           self.remove_group(neighbor)
-          
+    self.last_move = pos
     self.active_player = opponent
 
   def __str__(self):
@@ -95,7 +96,14 @@ class Baduk:
 
     for i, row in enumerate(self.board.arr):
       number_coords = f"{self.board.height - i: >3}"
-      ret.append(number_coords + " " + " ".join(MAP[val] for val in row) + number_coords)
+      row_str = number_coords + " " + " ".join(MAP[val] for val in row) + number_coords
+      if self.last_move and self.last_move.y == i:
+        row_str = list(row_str)
+        row_str[self.last_move.x * 2 + 3] = "("
+        row_str[self.last_move.x * 2 + 5] = ")"
+        row_str = "".join(row_str)
+      ret.append(row_str)
+        
     ret.append(letter_coords)
     return "\n".join(ret)
 
