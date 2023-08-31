@@ -8,8 +8,23 @@ dotenv.load_dotenv()
 CLIENT_ID = os.environ.get('CLIENT_ID')
 CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
 
-def get(client, endpoint):
-  return client.api.call_rest_endpoint('GET', endpoint=endpoint).json()
+
+def display_game(client, id: int):
+  game_details = client.game_details(id)
+  b = Baduk(game_details["width"], game_details["height"])
+  moves = game_details["gamedata"]["moves"]
+  for move in moves:
+    b.play_move(Coordinate(move[0], move[1]))
+  print(b)
+  
+
+def display_overview(client):
+  games = client.active_games()
+  for i, game in enumerate(games):
+    print(f'{i+1}) {game["id"]} - {game["name"]} - {game["black"]["username"]} v. {game["white"]["username"]}')
+  selected_game = int(input("select a game:")) - 1
+  display_game(client, games[selected_game]["id"])
+
 
 @click.command()
 @click.option('--username', prompt=True, help='Your OGS username')
@@ -25,19 +40,7 @@ def cli(username: str, password: str):
     password=password,
   )
 
-  games = client.active_games()
-  for i, game in enumerate(games):
-    print(f'{i+1}) {game["id"]} - {game["name"]} - {game["black"]["username"]} v. {game["white"]["username"]}')
-
-  selected_game = int(input("select a game:")) - 1
-
-  game_details = client.game_details(games[selected_game]["id"])
-  moves = game_details["gamedata"]["moves"]
-  b = Baduk(game_details["width"], game_details["height"])
-  for move in moves:
-    b.play_move(Coordinate(move[0], move[1]))
-  print(b)
-
+  display_overview(client)
 
 
 if __name__ == "__main__":
