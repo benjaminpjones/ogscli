@@ -1,4 +1,8 @@
 from typing import NamedTuple
+from string import ascii_uppercase
+
+
+LETTERS = ascii_uppercase.replace("I", "")
 
 
 class Coordinate(NamedTuple):
@@ -85,10 +89,15 @@ class Baduk:
 
   def __str__(self):
     MAP = [".", "X", "O"]
-    ret = ""
-    for row in self.board.arr:
-      ret += " ".join(MAP[val] for val in row) + "\n"
-    return ret
+    ret = []
+    letter_coords = "    " + " ".join(LETTERS[0:self.board.width])
+    ret.append(letter_coords)
+
+    for i, row in enumerate(self.board.arr):
+      number_coords = f"{self.board.height - i: >3}"
+      ret.append(number_coords + " " + " ".join(MAP[val] for val in row) + number_coords)
+    ret.append(letter_coords)
+    return "\n".join(ret)
 
 
 if __name__ == "__main__":
